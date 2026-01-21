@@ -16,3 +16,5 @@ notfals optimisation via infocaching
 
 python3 -m venv youtube
 source youtube/bin/activate
+
+# ci in das Project einbinden sowie das andvance python teting frame work maybe sogar integration tests weil ich geilster programmier bin
