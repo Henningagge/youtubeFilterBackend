@@ -1,16 +1,11 @@
-from constants import FilterHenningChannelId, FilterHenningUserId, Api_Key
-
+from constants import FilterHenning_Channelid, FilterHenning_User, Api_Key
+from Playlists import getPlaylistViaChannelId
 
 def main():
-    playlists = getPlaylists("channel")
-    subscribedChannels = getSubscribedChannels("channel")
-    videosofSubscribedChannels = getVideos("channel")
-    print("Playlists of Channel")
-    print(playlists)
-    print("subscribed Channels")
-    print(subscribedChannels)
+    getPlaylistViaChannelId()
 
-
+if __name__ == "__main__":
+    main()
 """
 Youtube Api Waht do i Need to do?
 
@@ -26,7 +21,7 @@ videos aus Playlists:
 
 
 #Diese anfrage gibt die alle Playlists ids die ein Channel hat
-f"https://www.googleapis.com/youtube/v3/playlists?key={Api_Key}&part=contentDetails&channelId={FilterHenningChannelId}&maxResults=10"
+f"https://www.googleapis.com/youtube/v3/playlists?key={Api_Key}&part=contentDetails&channelId={FilterHenning_Channelid}&maxResults=10"
 #dise anfrage gibt die die videos ids einer playlist du muss nurr die id bereit steleln
 f"https://www.googleapis.com/youtube/v3/playlistItems?key={Api_Key}&part=contentDetails&playlistId=PLg7eNtqimWhyPUjoBZoWK-5VcIkQfuQ4x&maxResults=5"
 
@@ -47,7 +42,7 @@ f"https://www.googleapis.com/youtube/v3/videos?key={Api_Key}&part=snippet&id=fc0
 
 #note es gibt eine funktion bei videos/list : list (my liked videos)
 #nutze iframe
-src="https://www.youtube.com/embed/{video_id}
+'src="https://www.youtube.com/embed/{video_id}"'
 
 
 #Channels via channel id:
