@@ -3,12 +3,10 @@ from constants import FilterHenningChannelId, FilterHenningUserId, Api_Key
 
 def main():
     playlists = getPlaylists("channel")
-    likedvideos = getLikedVideos("channel")
     subscribedChannels = getSubscribedChannels("channel")
+    videosofSubscribedChannels = getVideos("channel")
     print("Playlists of Channel")
     print(playlists)
-    print("liked videos of channel")
-    print(likedvideos)
     print("subscribed Channels")
     print(subscribedChannels)
 
