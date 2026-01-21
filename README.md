@@ -11,3 +11,8 @@ vieleicht sind die fähigkeiten des statick side generators ja ganz net hier mus
 die funktion das ein user etwas einer playlist auch hinzu fügen kann
 
 notfals optimisation via infocaching
+
+# Venv
+
+python3 -m venv youtube
+source youtube/bin/activate
