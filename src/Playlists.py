@@ -38,13 +38,18 @@ def getVideosinPlaylist(playlistId):
             part="contentDetails",
             playlistId=playlistId
         )
-        response = request.execute()
+        response = request.execute()               #! diese function ist noch nicht fertig return muss noch vormatiert werden und tests sind auch noch nicht da
     except Exception as e:
         print(f"There has been an error when requesting the videos of a Playlist via it's id error:  {e}")
         return []
 
     videos = []
-    print(response)
+
+    for item in response["items"]:
+        videos.append(item["contentDetails"].get("videoId"))
+
+
+    print(videos)
 def sendPlayliststoFrontend(playlistids):
     pass
 

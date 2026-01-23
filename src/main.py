@@ -5,6 +5,7 @@ def main():
     playlistids = getPlaylistViaChannelId()
     print(playlistids)
     getVideosinPlaylist(playlistids[0])
+    getVideosinPlaylist(playlistids[1])
 
 if __name__ == "__main__":
     main()
