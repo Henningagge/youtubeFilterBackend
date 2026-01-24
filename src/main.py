@@ -4,8 +4,9 @@ from recomendations import getSubscribedChannels, getVideosofChannels
 from variable import currentTopicChannelId
 def main():
     channels = getSubscribedChannels(currentTopicChannelId)
-    print(f"channels: {channels}")
-
+    print(channels)
+    vidoes = getVideosofChannels(channels)
+    print(vidoes)
 
 
 

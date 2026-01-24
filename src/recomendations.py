@@ -21,17 +21,31 @@ def getSubscribedChannels(userChannelId):
         channelIds.append(item["snippet"]["resourceId"]["channelId"])
 
     return channelIds
-def getVideosofChannels(channelsidarr):
-    youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
-    request = youtube.channels().list(
-                part="snippet",
-                id = ""
-            )
-    try:
-        response = request.execute() 
-    except Exception as e:
-        print(f"Error when trying to get Channel Recource error: {e}")
 
+
+def getVideosofChannels(channelsidarr):
+    videosIds = []
+    youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
+    for chanid in channelsidarr:
+        request = youtube.search().list(
+                    part="snippet",
+                    channelId=chanid,
+                    maxResults=10,
+                    order="date",
+                    type="video"
+                )
+        try:
+            response = request.execute() 
+        except Exception as e:
+            print(f"Error when trying to get Channel Recource error: {e}")
+        for item in response["items"]:
+            videosIds.append(item["id"]["videoId"])
+    return videosIds
+    #? man könnte die daten auch ganz an eine formatierungs funktione übergeben sowas wie title, channelId, thumbnail, channel Name läst sich auch so finden
+
+
+
+        
 def getChannelRecource(channelid):
     youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
     request = youtube.channels().list(
