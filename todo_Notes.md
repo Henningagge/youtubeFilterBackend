@@ -9,6 +9,9 @@
 9. Tests für alles schreiben
 10. Auch mock tests schreiben
 11. die VideoLengt formatieren
+12. Create Ci
+13. Build Cd
+    14edcase wie wen playlist lehr ist oder keine abonierten channels
 
 # Fragen
 

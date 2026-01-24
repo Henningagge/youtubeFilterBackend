@@ -47,18 +47,30 @@ def getVideoLength(videoid):
     minutes = re.findall(minutePattern, videoLength)
     seconds = re.findall(secondPattern, videoLength)
     if houres:
-        videoLengthString = houres + ":" + minutes + ":" + seconds
+        if len(minutes) == 0:
+            minutes.append("00M")
+        if len(seconds) == 0:
+            seconds.append("00S")
+        if len(minutes[0][:-1]) == 1:
+            minutes[0] = "0" + minutes[0]
+        if len(seconds[0][:-1]) == 1:
+            seconds[0] = "0" + seconds[0]
+        videoLengthString = houres[0][:-1] + ":" + minutes[0][:-1] + ":" + seconds[0][:-1]
     elif minutes:
-        videoLengthString  = minutes + ":" + seconds 
+        if len(seconds) == 0:
+            seconds.append("00S")
+        if len(seconds[0][:-1]) == 1:
+            seconds[0] = "0" + seconds[0]
+        videoLengthString  = minutes[0][:-1] + ":" + seconds[0][:-1]
     elif seconds:
-        videoLengthString = "0:" + seconds
+        if len(seconds[0][:-1]) == 1:
+            seconds[0] = "0" + seconds[0]
+        videoLengthString = "0:" + seconds[0][:-1]
     else:
-        raise Exception ("Video has no Time")
-    
-    print(f"videolengthstring1  {videoLengthString}")
+        raise Exception ("Video has no time that no bueno")
 
     return videoLengthString
-
+#! maybe solte ich das was das formating macht auslagern
 def formatVideos(videoUrl, thumbnail, channelname, channelBanner, length):
     pass 
     #hier soll einfach ein json geabaut werden welches dann ans front entübergeben werden kann
