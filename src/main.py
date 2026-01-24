@@ -1,12 +1,9 @@
 from constants import FilterHenning_Channelid, FilterHenning_User, Api_Key
 from Playlists import getPlaylistViaChannelId, getVideosinPlaylist, openPlaylists
-from recomendations import getSubscribedChannels, getVideosofChannels
+from recomendations import getSubscribedChannels, getVideosofChannels, loadVidoeRecomendations
 from variable import currentTopicChannelId
 def main():
-    channels = getSubscribedChannels(currentTopicChannelId)
-    print(channels)
-    vidoes = getVideosofChannels(channels)
-    print(vidoes)
+    recomendations = loadVidoeRecomendations(currentTopicChannelId)
 
 
 

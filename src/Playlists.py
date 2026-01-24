@@ -60,35 +60,38 @@ def getVideosinPlaylist(playlistId):
 
 def openPlaylists(playlistid):
     videoIds = getVideosinPlaylist(playlistid)
+    videoRecources = []
+    for videoId in videoIds:
+        vidoeRecource = getVideoRecourse(videoId)
+        videoRecources.append(vidoeRecource)
+    sendPlayliststoFrontend(videoRecources)
+
+        
+
+
+def getVideoRecourse(videoId):
     videoRecource = {}
     youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
-    for videoId in videoIds:
-        videoLength = getVideoLength(videoId)   
-        videoRecource[videoId] = videoLength
-
-    for videoId in videoIds:
-        request = youtube.videos().list(
+    videoLength = getVideoLength(videoId)   
+    videoRecource[videoId] = videoLength
+    request = youtube.videos().list(
                 part="snippet",
                 id = videoId
             )
-        response = request.execute() 
-        videoTitle = response["items"][0]["snippet"]["title"]
-        channelid = response["items"][0]["snippet"]["channelId"]
-        vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
-        channelRecource = getChannelRecource(channelid)
-        #Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
-        videoRecource[videoId] = [videoRecource[videoId], videoTitle,  vidoeThumbnail, channelid, channelRecource[1], channelRecource[2]]
-    #! die struckter nohc keil machen damit z.b videoDuration: 10m30s
+    response = request.execute() 
+    videoTitle = response["items"][0]["snippet"]["title"]
+    channelid = response["items"][0]["snippet"]["channelId"]
+    vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
+    channelRecource = getChannelRecource(channelid)
+    #Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
+    videoRecource[videoId] = [videoRecource[videoId], videoTitle,  vidoeThumbnail, channelid, channelRecource[1], channelRecource[2]]
 
     return videoRecource
 
 
 
 
-
-
-
-def sendPlayliststoFrontend(playlistids):
+def sendPlayliststoFrontend(videoRecources):
     pass
 
 #diese funktionalität ist verschoben weil man oAuth2 braucht undheute kein bock

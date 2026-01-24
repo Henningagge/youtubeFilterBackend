@@ -2,6 +2,7 @@ import random
 from constants import  Api_Key
 import googleapiclient.discovery
 import re
+from Playlists import getVideoRecourse
 api_service_name = "youtube"
 api_version = "v3"
 
@@ -106,20 +107,23 @@ def getVideoLength(videoid):
 
     return videoLengthString
 #! maybe solte ich das was das formating macht auslagern
-def formatVideos(videoUrl, thumbnail, channelname, channelBanner, length):
-    pass 
+def formatVideos(videoRecource):
+    pass #???????????????????????????????????????????????? brauch man das eigentlich noch will ich das über haupt formated und braucht es dafür überhaut 
+    #? eine funktion oder kann das nicht die funktion die die Recources erstelt übernehemn alleridngs vileicht auc Single responsebility verletzt
     #hier soll einfach ein json geabaut werden welches dann ans front entübergeben werden kann
     #? maybe auch nicht ich kann die ja so übergeben einfach schiecken muss mal schauen
-def sendVideostoFrontend(formatedVideosarr):
+def sendVideostoFrontend(videoRecources):
     pass
 
 def loadVidoeRecomendations(userChannelId):
     channelsarr = getSubscribedChannels(userChannelId)
     videosarr = getVideosofChannels(channelsarr)
     random.shuffle(videosarr)
-    for channel in channelsarr:
-        pass
-    
+    videoRecources = []
+    for video in videosarr:
+        videoRecource = getVideoRecourse(video)
+        videoRecources.append/videoRecource
+    sendVideostoFrontend(videoRecources)
 
 
 
