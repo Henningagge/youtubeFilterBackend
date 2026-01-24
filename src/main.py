@@ -4,7 +4,7 @@ from recomendations import getSubscribedChannels, getVideosofChannels, loadVidoe
 from variable import currentTopicChannelId
 def main():
     recomendations = loadVidoeRecomendations(currentTopicChannelId)
-
+    print(recomendations)
 
 
     #playlistids = getPlaylistViaChannelId()

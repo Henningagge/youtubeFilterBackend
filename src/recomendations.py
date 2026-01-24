@@ -2,9 +2,10 @@ import random
 from constants import  Api_Key
 import googleapiclient.discovery
 import re
-from Playlists import getVideoRecourse
+
 api_service_name = "youtube"
 api_version = "v3"
+
 
 def getSubscribedChannels(userChannelId):
     youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
@@ -31,7 +32,7 @@ def getVideosofChannels(channelsidarr):
         request = youtube.search().list(
                     part="snippet",
                     channelId=chanid,
-                    maxResults=10,
+                    maxResults=2,
                     order="date",
                     type="video"
                 )
@@ -107,6 +108,28 @@ def getVideoLength(videoid):
 
     return videoLengthString
 #! maybe solte ich das was das formating macht auslagern
+
+
+def getVideoRecourse(videoId):
+    videoRecource = {}
+    youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
+    videoLength = getVideoLength(videoId)   
+    videoRecource[videoId] = videoLength
+    request = youtube.videos().list(
+                part="snippet",
+                id = videoId
+            )
+    response = request.execute() 
+    videoTitle = response["items"][0]["snippet"]["title"]
+    channelid = response["items"][0]["snippet"]["channelId"]
+    vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
+    channelRecource = getChannelRecource(channelid)
+    #Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
+    videoRecource[videoId] = [videoRecource[videoId], videoTitle,  vidoeThumbnail, channelid, channelRecource[1], channelRecource[2]]
+
+    return videoRecource
+
+
 def formatVideos(videoRecource):
     pass #???????????????????????????????????????????????? brauch man das eigentlich noch will ich das über haupt formated und braucht es dafür überhaut 
     #? eine funktion oder kann das nicht die funktion die die Recources erstelt übernehemn alleridngs vileicht auc Single responsebility verletzt
@@ -122,8 +145,11 @@ def loadVidoeRecomendations(userChannelId):
     videoRecources = []
     for video in videosarr:
         videoRecource = getVideoRecourse(video)
-        videoRecources.append/videoRecource
+        videoRecources.append(videoRecource)
     sendVideostoFrontend(videoRecources)
+    return videoRecources
+
+
 
 
 

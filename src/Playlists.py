@@ -5,7 +5,7 @@ import googleapiclient.discovery
 import googleapiclient.errors
 import unittest
 from variable import currentTopicChannelId
-from recomendations import getChannelRecource, getVideoLength
+from recomendations import getChannelRecource, getVideoLength, getVideoRecourse
 api_service_name = "youtube"
 api_version = "v3"
 
@@ -69,24 +69,7 @@ def openPlaylists(playlistid):
         
 
 
-def getVideoRecourse(videoId):
-    videoRecource = {}
-    youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
-    videoLength = getVideoLength(videoId)   
-    videoRecource[videoId] = videoLength
-    request = youtube.videos().list(
-                part="snippet",
-                id = videoId
-            )
-    response = request.execute() 
-    videoTitle = response["items"][0]["snippet"]["title"]
-    channelid = response["items"][0]["snippet"]["channelId"]
-    vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
-    channelRecource = getChannelRecource(channelid)
-    #Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
-    videoRecource[videoId] = [videoRecource[videoId], videoTitle,  vidoeThumbnail, channelid, channelRecource[1], channelRecource[2]]
 
-    return videoRecource
 
 
 
