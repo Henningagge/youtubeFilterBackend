@@ -4,8 +4,10 @@ from Playlists import getPlaylistViaChannelId, getVideosinPlaylist
 def main():
     playlistids = getPlaylistViaChannelId()
     print(playlistids)
-    getVideosinPlaylist(playlistids[0])
-    getVideosinPlaylist(playlistids[1])
+    for key in playlistids:
+        result = getVideosinPlaylist(key)
+        print(result)
+
 
 if __name__ == "__main__":
     main()

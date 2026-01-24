@@ -16,7 +16,7 @@ def getPlaylistViaChannelId():
     try:
         youtube = googleapiclient.discovery.build(api_service_name,api_version, developerKey=Api_Key)
         request = youtube.playlists().list(
-            part="contentDetails",
+            part="snippet",
             channelId=currentTopicChannelId,
         )
         response = request.execute()
@@ -24,10 +24,14 @@ def getPlaylistViaChannelId():
         print(f"There has been an error when requesting the Youtube Api for the Playlists of a Channel error: {e}")
         return []
 
-    playlistIds = []
+    playlistRecource = {}
+    
     for item in response["items"]:
-        playlistIds.append(item["id"])
-    return playlistIds
+        playlistRecource[item["id"]] = item["snippet"]["title"]
+        playlistRecource[item["id"]] = [playlistRecource[item["id"]], item["snippet"]["thumbnails"]["default"]["url"]   ]
+        #? has a width of 120 and height if 90   other options than default if medium w:320 h:180
+        
+    return playlistRecource
 
 def getVideosinPlaylist(playlistId):
     api_service_name = "youtube"
@@ -49,6 +53,12 @@ def getVideosinPlaylist(playlistId):
         videos.append(item["contentDetails"].get("videoId"))
 
     return videos
+
+
+
+
+def openPlaylists(playlistid):
+    pass
 
 
 
