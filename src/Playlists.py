@@ -38,7 +38,7 @@ def getVideosinPlaylist(playlistId):
             part="contentDetails",
             playlistId=playlistId
         )
-        response = request.execute()               #! diese function ist noch nicht fertig return muss noch vormatiert werden und tests sind auch noch nicht da
+        response = request.execute()               #! diese function ist noch nicht fertig  werden und tests sind auch noch nicht da
     except Exception as e:
         print(f"There has been an error when requesting the videos of a Playlist via it's id error:  {e}")
         return []
@@ -48,8 +48,10 @@ def getVideosinPlaylist(playlistId):
     for item in response["items"]:
         videos.append(item["contentDetails"].get("videoId"))
 
+    return videos
 
-    print(videos)
+
+
 def sendPlayliststoFrontend(playlistids):
     pass
 
@@ -66,9 +68,4 @@ def deleteOutofPlaylist(playlistid, videoid):
 
 
 
-#youtube api für die zwei unteren funktionen
-#insert
-
-
-#delete
 

@@ -1,4 +1,4 @@
-from Playlists import getPlaylistViaChannelId
+from Playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
 import re
@@ -35,6 +35,14 @@ class TestRestTopic(unittest.TestCase):
                 if re.fullmatch(output, line):
                     self.assertEqual(output, line)
 
+class TestVideosinPlaylist(unittest.TestCase):
+    def testNormalResult(self):
+        #given
+        input = "PLg7eNtqimWhyPUjoBZoWK-5VcIkQfuQ4x"
+        #result
+        result = getVideosinPlaylist(input)
+        #check
+        self.assertEqual(result, ['jFzwS7z2418', 'fc0V8GHYiOw'])
 
 
 
