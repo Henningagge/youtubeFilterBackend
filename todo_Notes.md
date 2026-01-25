@@ -12,9 +12,11 @@
 12. Create Ci
 13. Build Cd
     14edcase wie wen playlist lehr ist oder keine abonierten channels
+14. erklärung und cloning in die readme schreiben
 
 # Fragen
 
+brauche ich eine easy version zum registrieren von nutzer weil das soll ja bei github auch jemand bauen können
 Brauchen ich eine DB für das chaching von daten und dann nur einmal täglich massiven aufwand machen?
 
 wie mock man eigentlich
