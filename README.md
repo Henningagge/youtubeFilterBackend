@@ -1,3 +1,5 @@
+python3 ./src/server.py
+
 Maybe eine DB umd videos daten zu cachen wen ich bei zu häufigen öffnene in ratelimeting reinlaufe
 die webside auf mein handy bringen mit icon auf dem screen
 tailwind als style wir nutzen den static site generator
