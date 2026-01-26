@@ -125,7 +125,8 @@ def getVideoRecourse(videoId):
     vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
     channelRecource = getChannelRecource(channelid)
     #Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
-    videoRecource[videoId] = [videoRecource[videoId], videoTitle,  vidoeThumbnail, channelid, channelRecource[1], channelRecource[2]]
+    videoRecource[videoId] = {"videoLength":videoRecource[videoId],"videoTitle": videoTitle,"thumbnail":  vidoeThumbnail,"channelId": channelid,
+                              "channelName": channelRecource[1],"channelBanner": channelRecource[2]}
 
     return videoRecource
 

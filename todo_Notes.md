@@ -1,18 +1,16 @@
 1. Die daten schöner machen damit vor den werten steht was das ist z.b videoTitle: "How the wised man was unhappy"
-2. die video sachen fertig machen
-3. das generele html desing machen
-4. tailwind einbinden
-5. interaktivity für das html.
-6. die todos machen
-7. code auf räumen
-8. front end fertig machen
-9. Tests für alles schreiben
-10. Auch mock tests schreiben
-11. die VideoLengt formatieren
-12. Create Ci
-13. Build Cd
-    14edcase wie wen playlist lehr ist oder keine abonierten channels
-14. erklärung und cloning in die readme schreiben
+
+2. interaktivity für das html.
+
+3. code auf räumen
+4. front end fertig machen
+5. Tests für alles schreiben
+6. Auch mock tests schreiben
+
+7. Create Ci
+8. Build Cd
+9. edcase wie wen playlist lehr ist oder keine abonierten channels
+10. erklärung und cloning in die readme schreiben
 
 # Fragen
 
