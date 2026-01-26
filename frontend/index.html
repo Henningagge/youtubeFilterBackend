@@ -9,24 +9,62 @@
   <body>
     <div class="bg-black">
       <div class="fixed bg-black w-full p-4">
-        <h1 id="TopicChannel" class="font-bold text-gray-50">
+        <h1 id="CurrentTopicChannel" class="font-bold text-gray-50">
           Currentchannel: FilterHenning
         </h1>
         <button
           id="TopicSwap"
           class="font-bold p-2 text-gray-50 bg-gray-600 rounded-xl focus:bg-gray-700"
+          onclick="openPanel()"
         >
           TopicSwap
         </button>
+        <div
+          id="topicPanel"
+          style="
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid black;
+            padding: 20px;
+            z-index: 1000;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <h2 class="text-amber-700">Topic Channels</h2>
+            <button onclick="closePanel()" class="hover:text-2xl">X</button>
+          </div>
+          <ul id="topicList" class="warp">
+            <button id="filter" class="focus:text-stone-500">
+              FilterHenning
+            </button>
+            <li></li>
+            <button id="tech" class="focus:text-stone-500">TechHenning</button>
+            <li></li>
+            <button id="python" class="focus:bg-black">PythonHenning</button>
+          </ul>
+          <button onclick="addTopicChannel()">Add New Channel</button>
+        </div>
         <button
           id="Playlists"
           class="font-bold p-2 text-gray-50 bg-gray-600 rounded-xl focus:bg-gray-700"
+          onclick="loadPlaylists()"
         >
           Playlists
         </button>
         <button
           id="Recomendations"
           class="font-bold p-2 text-gray-50 bg-gray-600 rounded-xl focus:bg-gray-700"
+          onclick="loadRecomendations()"
         >
           Recomendations
         </button>
@@ -333,5 +371,5 @@
       </div>
     </div>
   </body>
-  <script src="index.ts"></script>
+  <script src="index.js"></script>
 </html>

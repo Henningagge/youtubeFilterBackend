@@ -11,6 +11,7 @@
 8. Build Cd
 9. edcase wie wen playlist lehr ist oder keine abonierten channels
 10. erklärung und cloning in die readme schreiben
+11. für oauth2 umbauen damit ich private stellen kann
 
 # Fragen
 
