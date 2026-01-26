@@ -1,4 +1,3 @@
-//? maybe die auch in eine get function aber jetzt grad ok
 export async function get_recomendations() {
   try {
     const response = await fetch('http://127.0.0.1:5000/recomendations');
@@ -27,7 +26,10 @@ export async function get_playlists() {
 }
 export async function open_playlist(playlistid: string) {
   try {
-    const response = await fetch('http://127.0.0.1:5000/openPlaylist');
+    const response = await fetch('http://127.0.0.1:5000/openPlaylist', {
+      method: 'GET',
+      body: playlistid,
+    });
     if (!response.ok) {
       throw new Error(`Error when opening playlist status ${response.status}`);
     }
@@ -39,7 +41,10 @@ export async function open_playlist(playlistid: string) {
 }
 export async function swapChannel(channelid: string) {
   try {
-    const response = await fetch('http://127.0.0.1:5000/swap');
+    const response = await fetch('http://127.0.0.1:5000/swap', {
+      method: 'GET',
+      body: channelid,
+    });
     if (!response.ok) {
       throw new Error(`Error when swapping channel status: ${response.status}`);
     }
