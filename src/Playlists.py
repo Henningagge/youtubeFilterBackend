@@ -29,8 +29,7 @@ def getPlaylistViaChannelId():
     playlistRecource = {}
     
     for item in response["items"]:
-        playlistRecource[item["id"]] = item["snippet"]["title"]
-        playlistRecource[item["id"]] = [playlistRecource[item["id"]], item["snippet"]["thumbnails"]["default"]["url"]   ]
+        playlistRecource[item["id"]] = {"PlaylistTitle":item["snippet"]["title"],"PlaylistThumbnail": item["snippet"]["thumbnails"]["default"]["url"]   }
         #? has a width of 120 and height if 90   other options than default if medium w:320 h:180
         
     return playlistRecource
@@ -58,13 +57,12 @@ def getVideosinPlaylist(playlistId):
 
 
 
-def openPlaylists(playlistid):
+def openPlaylist(playlistid):
     videoIds = getVideosinPlaylist(playlistid)
     videoRecources = []
     for videoId in videoIds:
         vidoeRecource = getVideoRecourse(videoId)
         videoRecources.append(vidoeRecource)
-    sendPlayliststoFrontend(videoRecources)
 
         
 
@@ -74,8 +72,6 @@ def openPlaylists(playlistid):
 
 
 
-def sendPlayliststoFrontend(videoRecources):
-    pass
 
 #diese funktionalität ist verschoben weil man oAuth2 braucht undheute kein bock
 #todo wie sieht das eigentlich auß brauch ich für mehrer kanäle dann immer anderes oAuth2 oder nicht?

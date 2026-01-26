@@ -131,13 +131,7 @@ def getVideoRecourse(videoId):
     return videoRecource
 
 
-def formatVideos(videoRecource):
-    pass #???????????????????????????????????????????????? brauch man das eigentlich noch will ich das über haupt formated und braucht es dafür überhaut 
-    #? eine funktion oder kann das nicht die funktion die die Recources erstelt übernehemn alleridngs vileicht auc Single responsebility verletzt
-    #hier soll einfach ein json geabaut werden welches dann ans front entübergeben werden kann
-    #? maybe auch nicht ich kann die ja so übergeben einfach schiecken muss mal schauen
-def sendVideostoFrontend(videoRecources):
-    pass
+
 
 def loadVidoeRecomendations(userChannelId):
     channelsarr = getSubscribedChannels(userChannelId)
@@ -147,19 +141,6 @@ def loadVidoeRecomendations(userChannelId):
     for video in videosarr:
         videoRecource = getVideoRecourse(video)
         videoRecources.append(videoRecource)
-    sendVideostoFrontend(videoRecources)
     return videoRecources
 
 
-
-
-
-#wie sieht ein video aus was dann ans front end geschicket werden soll
-#
-#
-#   thumbnail=thumbnailurl
-#   src="https://www.youtube.com/embed/{video_id}
-#   channelName=Name
-#   Channeldbanner=bannerurl
-#   videoLenght= 1:23       #wie machen keine sekunden because i don't care ob video 0:30:35 oder 0:30:50
-#

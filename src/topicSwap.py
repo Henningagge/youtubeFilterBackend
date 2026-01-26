@@ -18,11 +18,10 @@ def switchTopic(userChannelId):
         print(f"The file a path: {variableFile} could not be found error: {e}")
     except Exception as e:
         print(f"There has been an error when replacing the topic id error: {e}")
-    #loadVidoeRecomendations(userChannelId) #mayber muss man hier auch noch was returnenn oder in ein file schreiben
+
     return
 
 
 def resetToStadartTopic():
     standarttopicId = "UCsd4OmYbE6BeYEdm-Vn7pcQ"
     switchTopic(standarttopicId)
-    #loadVidoeRecomendations(standarttopicId)
