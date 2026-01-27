@@ -22,6 +22,7 @@ def getPlaylistViaChannelId():
             channelId=currentTopicChannelId,
         )
         response = request.execute()
+
     except Exception as e:
         print(f"There has been an error when requesting the Youtube Api for the Playlists of a Channel error: {e}")
         return []
@@ -30,7 +31,7 @@ def getPlaylistViaChannelId():
     
     for item in response["items"]:
         playlistRecource[item["id"]] = {"PlaylistTitle":item["snippet"]["title"],"PlaylistThumbnail": item["snippet"]["thumbnails"]["default"]["url"]   }
-        #? has a width of 120 and height if 90   other options than default if medium w:320 h:180
+        #? has a width of 120 and height if 90   other options than default is medium w:320 h:180 or other
         
     return playlistRecource
 

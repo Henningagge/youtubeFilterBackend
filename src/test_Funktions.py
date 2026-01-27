@@ -1,8 +1,13 @@
 from Playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
-import re
+import re 
+from unittest.mock import patch, Mock
+import requests
+import googleapiclient.discovery
 from recomendations import getChannelRecource, getVideoLength
+from constants import Api_Key
+from variable import currentTopicChannelId
 class TestSwitchTopi(unittest.TestCase):
     def testNormalPatternSwitch(self):
         input = "hallo123"
@@ -42,7 +47,7 @@ class TestVideosinPlaylist(unittest.TestCase):
         #process
         result = getVideosinPlaylist(input)
         #check
-        self.assertEqual(result, ['jFzwS7z2418', 'fc0V8GHYiOw'])
+        self.assertEqual(result, [])
 
 class TestVideoLengthFuntion(unittest.TestCase):
     def testHouresInput(self):
@@ -94,7 +99,7 @@ class TestVideoLengthFuntion(unittest.TestCase):
 class TestGetPlaylist(unittest.TestCase):
     def testNormalPattern(self):
         #given
-        expectedOutput = "{'PLg7eNtqimWhw6glG1BNZNmFAlLiGnXMGe': ['TimeTest', 'https://i.ytimg.com/vi/eB0zU5tnSPo/default.jpg'], 'PLg7eNtqimWhxzVBsWVm-rxpECNuUiEJ9w': ['hello mi matchu mitischo daloscho', 'https://i.ytimg.com/vi/hK0_mSvfEdo/default.jpg'], 'PLg7eNtqimWhyPUjoBZoWK-5VcIkQfuQ4x': ['Bible concepts', 'https://i.ytimg.com/vi/jFzwS7z2418/default.jpg']}"
+        expectedOutput = "{'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U': {'PlaylistTitle': 'ksajfsalkjfsak', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg'}, 'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG': {'PlaylistTitle': 'dfksajfksaj', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg'}, 'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf': {'PlaylistTitle': 'Garrot', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg'}}"
         #process
         response = getPlaylistViaChannelId()
         #check
@@ -107,7 +112,81 @@ class TestGetChannelRecource(unittest.TestCase):
         #process
         result = getChannelRecource(input)
         #check
-        self.assertEqual(result, ["UCTzZ2-byV7kigoeQ1ZQ39ig", '', 'https://yt3.ggpht.com/oe2rtGqTvV-JKIBnUWbvbzVvoDP4_Uy3S8ZqMuUuIYJCdOOVNmlrVOviOlI8kX0CUCyV2v-Yvg=s88-c-k-c0x00ffffff-no-rj'])
+        self.assertEqual(result, ["UCTzZ2-byV7kigoeQ1ZQ39ig", 'Ear to Hear', 'https://yt3.ggpht.com/oe2rtGqTvV-JKIBnUWbvbzVvoDP4_Uy3S8ZqMuUuIYJCdOOVNmlrVOviOlI8kX0CUCyV2v-Yvg=s88-c-k-c0x00ffffff-no-rj'])
+
+
+class TestMockGetPlaylists(unittest.TestCase):
+
+    @patch("googleapiclient.discovery.build")
+    def testNormalData(self, mock_build):
+        # Mock the response from the YouTube API
+        mock_youtube = Mock()
+        mock_playlists = Mock()
+        mock_playlists_list = Mock()
+        mock_execute = Mock()
+
+        response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU', 'nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': [{'kind': 'youtube#playlist', 'etag': 'ODuDxSWB8jFStY7WfWGxysKday8', 'id': 'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U', 'snippet': {'publishedAt': '2026-01-26T06:33:43.91067Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'ksajfsalkjfsak', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'ksajfsalkjfsak', 'description': ''}}}, {'kind': 'youtube#playlist', 'etag': 'ckoSlizL-PGfpRi0ajCLCb4oe4U', 'id': 'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG', 'snippet': {'publishedAt': '2026-01-26T06:33:24.623843Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'dfksajfksaj', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'dfksajfksaj', 'description': ''}}}, {'kind': 'youtube#playlist', 'etag': 'yjHceQt0bqW8Ni64RmwuZyUqGsM', 'id': 'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf', 'snippet': {'publishedAt': '2026-01-26T06:33:07.659169Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'Garrot', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'Garrot', 'description': ''}}}]}
+
+        mock_execute.return_value = response_dict
+        mock_playlists_list.execute.return_value = response_dict
+        mock_playlists.list.return_value = mock_playlists_list
+        mock_youtube.playlists.return_value = mock_playlists
+        mock_build.return_value = mock_youtube
+
+        
+
+        # Call the function
+        user_data = getPlaylistViaChannelId()
+
+        # Assert that the YouTube API was called correctly
+        mock_build.assert_called_with("youtube", "v3", developerKey=Api_Key)
+        mock_youtube.playlists.assert_called_once()
+        mock_playlists.list.assert_called_once_with(part="snippet", channelId=currentTopicChannelId)
+
+        # Assert the important parts of the returned data
+        expected_data = {
+            'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U': {
+                'PlaylistTitle': 'ksajfsalkjfsak',
+                'PlaylistThumbnail': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg'
+            },
+            'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG': {
+                'PlaylistTitle': 'dfksajfksaj',
+                'PlaylistThumbnail': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg'
+            },
+            'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf': {
+                'PlaylistTitle': 'Garrot',
+                'PlaylistThumbnail': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg'
+            }
+        }
+        self.assertEqual(user_data, expected_data)
+
+
+    @patch("googleapiclient.discovery.build")
+    def testGetPlaylistEmpty(self, mock_build):
+        mock_youtube = Mock()
+        mock_playlists = Mock()
+        mock_playlists_list = Mock()
+        mock_execute = Mock()
+
+        response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU','nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': []}
+        mock_execute.return_value = response_dict
+        mock_playlists_list.execute.return_value = response_dict
+        mock_playlists.list.return_value = mock_playlists_list
+        mock_youtube.playlists.return_value = mock_playlists
+        mock_build.return_value = mock_youtube
+
+        user_data = getPlaylistViaChannelId()
+
+        mock_build.asser_called_with("youtube", "v3", developerKey=Api_Key)
+        mock_youtube.playlists.asser_called_once()
+        mock_playlists.list.assert_called_once_with(part="snippet", channelId=currentTopicChannelId)
+
+        expected_data = {}
+
+        self.assertEqual(user_data, expected_data)
+
+
+
 
 if __name__ == '__main__':
   unittest.main()

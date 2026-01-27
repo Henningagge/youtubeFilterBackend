@@ -3,12 +3,12 @@ from Playlists import getPlaylistViaChannelId, getVideosinPlaylist, openPlaylist
 from recomendations import getSubscribedChannels, getVideosofChannels, loadVidoeRecomendations
 from variable import currentTopicChannelId
 def main():
-    recomendations = loadVidoeRecomendations(currentTopicChannelId)
-    result = getPlaylistViaChannelId()
-    print(recomendations)
-    print(result)
-    result2 = openPlaylist("PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf")
-    print(result2)
+   # recomendations = loadVidoeRecomendations(currentTopicChannelId)
+    #result = getPlaylistViaChannelId()
+    pass
+
+    #result2 = openPlaylist("PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf")
+
 
 
 
