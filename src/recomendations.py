@@ -1,8 +1,8 @@
-import random
+import random 
 from constants import  Api_Key
 import googleapiclient.discovery
 import re
-
+from variable import currentTopicChannelId
 api_service_name = "youtube"
 api_version = "v3"
 
@@ -56,6 +56,7 @@ def getChannelRecource(channelid):
             )
     try:
         response = request.execute() 
+        
     except Exception as e:
         print(f"Error when trying to get Channel Recource error: {e}")
     channelRecource = []  
@@ -107,7 +108,10 @@ def getVideoLength(videoid):
         raise Exception ("Video has no time that no bueno")
 
     return videoLengthString
-#! maybe solte ich das was das formating macht auslagern
+
+
+
+
 
 
 def getVideoRecourse(videoId):
@@ -133,8 +137,8 @@ def getVideoRecourse(videoId):
 
 
 
-def loadVidoeRecomendations(userChannelId):
-    channelsarr = getSubscribedChannels(userChannelId)
+def loadVidoeRecomendations():
+    channelsarr = getSubscribedChannels(currentTopicChannelId)
     videosarr = getVideosofChannels(channelsarr)
     random.shuffle(videosarr)
     videoRecources = []

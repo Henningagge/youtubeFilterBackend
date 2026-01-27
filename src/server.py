@@ -2,7 +2,7 @@
 from recomendations import loadVidoeRecomendations
 from Playlists import getPlaylistViaChannelId, openPlaylist
 from topicSwap import  switchTopic
-#! a flash server with my own api where i can then make request
+
 
 from flask import Flask, request
 

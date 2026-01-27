@@ -2,10 +2,10 @@ from Playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
 import re 
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock
 import requests
 import googleapiclient.discovery
-from recomendations import getChannelRecource, getVideoLength
+from recomendations import getChannelRecource, getVideoLength, loadVidoeRecomendations
 from constants import Api_Key
 from variable import currentTopicChannelId
 class TestSwitchTopi(unittest.TestCase):
@@ -119,7 +119,6 @@ class TestMockGetPlaylists(unittest.TestCase):
 
     @patch("googleapiclient.discovery.build")
     def testNormalData(self, mock_build):
-        # Mock the response from the YouTube API
         mock_youtube = Mock()
         mock_playlists = Mock()
         mock_playlists_list = Mock()
@@ -133,17 +132,12 @@ class TestMockGetPlaylists(unittest.TestCase):
         mock_youtube.playlists.return_value = mock_playlists
         mock_build.return_value = mock_youtube
 
-        
-
-        # Call the function
         user_data = getPlaylistViaChannelId()
 
-        # Assert that the YouTube API was called correctly
         mock_build.assert_called_with("youtube", "v3", developerKey=Api_Key)
         mock_youtube.playlists.assert_called_once()
         mock_playlists.list.assert_called_once_with(part="snippet", channelId=currentTopicChannelId)
 
-        # Assert the important parts of the returned data
         expected_data = {
             'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U': {
                 'PlaylistTitle': 'ksajfsalkjfsak',
@@ -169,6 +163,7 @@ class TestMockGetPlaylists(unittest.TestCase):
         mock_execute = Mock()
 
         response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU','nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': []}
+        
         mock_execute.return_value = response_dict
         mock_playlists_list.execute.return_value = response_dict
         mock_playlists.list.return_value = mock_playlists_list
@@ -177,8 +172,8 @@ class TestMockGetPlaylists(unittest.TestCase):
 
         user_data = getPlaylistViaChannelId()
 
-        mock_build.asser_called_with("youtube", "v3", developerKey=Api_Key)
-        mock_youtube.playlists.asser_called_once()
+        mock_build.assert_called_with("youtube", "v3", developerKey=Api_Key)
+        mock_youtube.playlists.assert_called_once()
         mock_playlists.list.assert_called_once_with(part="snippet", channelId=currentTopicChannelId)
 
         expected_data = {}
@@ -186,7 +181,62 @@ class TestMockGetPlaylists(unittest.TestCase):
         self.assertEqual(user_data, expected_data)
 
 
+#! auch noch tests für fehlerund andere id also keine id und falsche id
+
+class TestGetChannelResource(unittest.TestCase):
+    @patch("googleapiclient.discovery.build")
+    def testGetChannelResource(self, mock_build):
+        mock_youtube = MagicMock()
+        mock_channels = Mock()
+        mock_execute = Mock()
 
 
+        response_dict = {'kind': 'youtube#channelListResponse', 'etag': '6NHK8hBiM6aq9XgEK4v4EvSuhYI', 'pageInfo': {'totalResults': 1, 'resultsPerPage': 5}, 'items': [{'kind': 'youtube#channel', 'etag': '9_aCofqtgu2M7QEKlTUsHdQ0YCM', 'id': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'snippet': {'title': 'Henning Filter', 'description': '', 'customUrl': '@henningfilter', 'publishedAt': '2026-01-20T18:03:42.546747Z', 'thumbnails': {'default': {'url': 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s88-c-k-c0x00ffffff-no-rj', 'width': 88, 'height': 88}, 'medium': {'url': 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s240-c-k-c0x00ffffff-no-rj', 'width': 240, 'height': 240}, 'high': {'url': 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s800-c-k-c0x00ffffff-no-rj', 'width': 800, 'height': 800}}, 'localized': {'title': 'Henning Filter', 'description': ''}}}]}
+
+        mock_execute.return_value = response_dict
+        mock_channels.execute.return_value = response_dict
+        mock_channels.list.return_value = mock_channels
+        mock_build.return_value = mock_youtube
+
+        user_data = getChannelRecource(currentTopicChannelId)
+
+        mock_build.assert_called_with("youtube", "v3", developerKey= Api_Key)
+        mock_youtube.channel.assert_called_once()
+        mock_channels.list.assert_called_once_with(part="snippet", id=currentTopicChannelId)
+
+        expected_data = ['UCsd4OmYbE6BeYEdm-Vn7pcQ', 'Henning Filter', 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s88-c-k-c0x00ffffff-no-rj']
+        
+        self.assertEqual(user_data, expected_data)
+
+
+
+#todo hier ist etwas sus ich weiß garnicht wieso ich youtube moke die funktion ruft nur funktionen auf
+#todo bessere möglichkeit finden das zu testen vileicht subfunktions mocken
+#* merk dir das shuffeld und du kannst xor machen wen du zwei responses hast
+"""
+class TestRecomendations(unittest.TestCase):
+    @patch("googleapiclient.discovery.build")
+    def testRecomendationResponse(self, mock_build):
+        mock_youtube = Mock()
+        mock_videos = Mock()
+        mock_execute = Mock()
+
+        response_dict = {'HFNgi-NYd18': {'videoLength': '22:34', 'videoTitle': '😂🤯Wir MACHEN ihn zum HUND! - ASOZIALSTE FOLGE ARC RAIDERS EVER mit ZARBEX und MARLI | Trymacs', 'thumbnail': 'https://i.ytimg.com/vi/HFNgi-NYd18/default.jpg', 'channelId': 'UC6Gc4KQ1ueDnh8x7plaAD3w', 'channelName': 'Trymacs', 'channelBanner': 'https://yt3.ggpht.com/ytc/AIdro_nmKhHDyPVOMAkIZ2uUVYJrKKnTvPlMhQTSvX-kSlD787A=s88-c-k-c0x00ffffff-no-rj'}}, {'j4K99IZTStQ': {'videoLength': '1:04:47', 'videoTitle': '24 STUNDEN MINECRAFT AM STÜCK SPIELEN (WELT = 100% WASSER)', 'thumbnail': 'https://i.ytimg.com/vi/j4K99IZTStQ/default.jpg', 'channelId': 'UCgZpwegd4AdDlZNrIamIgRw', 'channelName': 'BastiGHG', 'channelBanner': 'https://yt3.ggpht.com/s92_ZA6Dc-TmMI1zSZFtGcXv4Rrsl3XeP8hE2HUc402u18pfsriNkWrkLtqXAfjIq1K9Zi5D2p8=s88-c-k-c0x00ffffff-no-rj'}}
+
+        mock_execute.return_value = response_dict
+        mock_videos.excute.return_value = response_dict
+        mock_youtube.playlists.return_value = mock_videos
+        mock_build.return_value = mock_youtube
+
+        user_data = loadVidoeRecomendations()
+
+        mock_build.assert_called_with("youtube", "v3", developerKey = Api_Key)
+        mock_youtube.videos.assert_called_once()
+        mock_videos.list.assert_called_once_with(part="snippet", channelId=currentTopicChannelId)
+
+        expected_data = [{'HFNgi-NYd18': {'videoLength': '22:34', 'videoTitle': '😂🤯Wir MACHEN ihn zum HUND! - ASOZIALSTE FOLGE ARC RAIDERS EVER mit ZARBEX und MARLI | Trymacs', 'thumbnail': 'https://i.ytimg.com/vi/HFNgi-NYd18/default.jpg', 'channelId': 'UC6Gc4KQ1ueDnh8x7plaAD3w', 'channelName': 'Trymacs', 'channelBanner': 'https://yt3.ggpht.com/ytc/AIdro_nmKhHDyPVOMAkIZ2uUVYJrKKnTvPlMhQTSvX-kSlD787A=s88-c-k-c0x00ffffff-no-rj'}}, {'j4K99IZTStQ': {'videoLength': '1:04:47', 'videoTitle': '24 STUNDEN MINECRAFT AM STÜCK SPIELEN (WELT = 100% WASSER)', 'thumbnail': 'https://i.ytimg.com/vi/j4K99IZTStQ/default.jpg', 'channelId': 'UCgZpwegd4AdDlZNrIamIgRw', 'channelName': 'BastiGHG', 'channelBanner': 'https://yt3.ggpht.com/s92_ZA6Dc-TmMI1zSZFtGcXv4Rrsl3XeP8hE2HUc402u18pfsriNkWrkLtqXAfjIq1K9Zi5D2p8=s88-c-k-c0x00ffffff-no-rj'}}]
+
+        self.assertEqual(user_data, expected_data)
+"""
 if __name__ == '__main__':
   unittest.main()
