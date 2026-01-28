@@ -2,7 +2,7 @@
 from recomendations import loadVidoeRecomendations
 from playlists import getPlaylistViaChannelId, openPlaylist
 from topicSwap import  switchTopic
-
+from flask_cors import CORS, cross_origin
 
 from flask import Flask, request
 
@@ -14,7 +14,7 @@ def servermain():
 
 @app.route("/recomendations")
 def loadRecomendationsApi():
-    result = loadVidoeRecomendations("UCsd4OmYbE6BeYEdm-Vn7pcQ")
+    result = loadVidoeRecomendations()
     return result
 
 @app.route("/swap")
