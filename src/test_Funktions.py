@@ -1,4 +1,4 @@
-from Playlists import getPlaylistViaChannelId, getVideosinPlaylist
+from playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
 import re 

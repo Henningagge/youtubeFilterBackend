@@ -1,6 +1,6 @@
 
 from recomendations import loadVidoeRecomendations
-from Playlists import getPlaylistViaChannelId, openPlaylist
+from playlists import getPlaylistViaChannelId, openPlaylist
 from topicSwap import  switchTopic
 
 
