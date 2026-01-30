@@ -1,22 +1,16 @@
-1. Die daten schöner machen damit vor den werten steht was das ist z.b videoTitle: "How the wised man was unhappy"
-
-2. interaktivity für das html.
-
 3. code auf räumen
 4. front end fertig machen
 5. Tests für alles schreiben
 6. Auch mock tests schreiben
-
-7. Create Ci
-8. Build Cd
-9. edcase wie wen playlist lehr ist oder keine abonierten channels
-10. erklärung und cloning in die readme schreiben
-11. für oauth2 umbauen damit ich private stellen kann
-12. so ein banner von boot.dev und das banner mit wie viel prozent der test passen
-13. meinen funktion gut exceptions geben wen sie das brauchen
-14. flake8 pyright und die anderen sachen die die im Team benutzen einbauen
-15. likes geben
-16. liked sowie später ansehen playylists krigen
+7. Build Cd
+8. edcase wie wen playlist lehr ist oder keine abonierten channels
+9. erklärung und cloning in die readme schreiben
+10. für oauth2 umbauen damit ich private stellen kann
+11. so ein banner von boot.dev und das banner mit wie viel prozent der test passen
+12. meinen funktion gut exceptions geben wen sie das brauchen
+13. flake8 pyright und die anderen sachen die die im Team benutzen einbauen
+14. likes geben
+15. liked sowie später ansehen playylists krigen
 
 # Fragen
 
