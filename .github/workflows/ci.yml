@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubunto-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+
+      - name: Install dependencies
+        run: uv venv | source .venv/bin/active | pip install .
+
+      - name: run tests
+        run: ./test.sh
+
+      - name: formating check for code
+        run: autopep8 --in-place --aggressive --aggressive .py
+
+      - name: run linter
+        run: flake8 ../../src
+
+      - name: security checks
+        run: safety check --full-report
+
+      - name: detect secrets
+        run: detect-secrets scan --update .secrets.baseline | detect-secrets audit .secrets.baseline
+
+      - name: run SAST
+        run: bandit -r your_project/ -lll
