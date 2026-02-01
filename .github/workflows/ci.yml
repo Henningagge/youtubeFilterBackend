@@ -1,4 +1,4 @@
-name: ci
+name: CI
 
 on:
   pull_request:
@@ -7,31 +7,43 @@ on:
 jobs:
   tests:
     name: Tests
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
 
       - name: Install dependencies
-        run: uv venv | source .venv/bin/active | pip install .
+        run: |
+          uv venv
+          source .venv/bin/active 
+          uv pip install --upgrade pip
+          uv pip install -e . --dev
 
       - name: run tests
         run: ./test.sh
 
       - name: formating check for code
-        run: autopep8 --in-place --aggressive --aggressive .py
+        run: autopep8 --recursive --diff --exit-code .
 
       - name: run linter
-        run: flake8 ../../src
+        run: flake8 /src
 
       - name: security checks
         run: safety check --full-report
 
       - name: detect secrets
-        run: detect-secrets scan --update .secrets.baseline | detect-secrets audit .secrets.baseline
+        run: detect-secrets scan --update .secrets.baseline
+
+      - name: audit secrets
+        run: detect-secrets audit .secrets.baseline
 
       - name: run SAST
-        run: bandit -r your_project/ -lll
+        run: bandit -r . -l
+
+      - name: run audit
+        run: pip-audit
