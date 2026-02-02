@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           ls -l
-          ls -l /youtube/bin
+          ls -l /youtube
           source youtube/bin/activate
           uv pip install --upgrade pip
           uv pip install -e . --dev
