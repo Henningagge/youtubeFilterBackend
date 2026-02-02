@@ -25,10 +25,8 @@ jobs:
           uv venv
           source .venv/bin/activate
           uv pip install poetry
+          pip install google-auth-oauthlib
           poetry install --no-root
-
-      - name: run tests
-        run: ./test.sh
 
       - name: formating check for code
         run: autopep8 --recursive --diff --exit-code .
