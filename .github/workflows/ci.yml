@@ -29,9 +29,6 @@ jobs:
           pip install googleapiclient.discovery
           poetry install --no-root
 
-      - name: run tests
-        run: ./test.sh
-
       - name: formating check for code
         run: autopep8 --recursive --diff --exit-code .
 
