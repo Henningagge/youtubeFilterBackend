@@ -24,7 +24,7 @@ jobs:
         run: |
           rm -rf .venv
           uv venv
-          source .venv/bin/active 
+          source .venv/Scripts/active 
           uv pip install --upgrade pip
           uv pip install -e . --dev
 
