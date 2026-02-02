@@ -1,8 +1,9 @@
 import random 
-from constants import  Api_Key
 import googleapiclient.discovery
 import re
 from variable import currentTopicChannelId
+import os
+Api_Key = os.environ.get('API_KEY')
 api_service_name = "youtube"
 api_version = "v3"
 

@@ -1,11 +1,11 @@
-import os
-from constants import  Api_Key
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 import unittest
 from variable import currentTopicChannelId
 from recomendations import getChannelRecource, getVideoLength, getVideoRecourse
+import os
+Api_Key = os.environ.get('API_KEY')
 api_service_name = "youtube"
 api_version = "v3"
 
