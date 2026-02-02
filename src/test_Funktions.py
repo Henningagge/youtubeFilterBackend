@@ -3,8 +3,7 @@ import unittest
 from topicSwap import switchTopic, resetToStadartTopic
 import re 
 from unittest.mock import patch, Mock, MagicMock
-import requests
-import googleapiclient.discovery
+
 from recomendations import getChannelRecource, getVideoLength, loadVidoeRecomendations
 from variable import currentTopicChannelId
 import os
