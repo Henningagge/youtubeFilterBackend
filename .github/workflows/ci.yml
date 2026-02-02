@@ -26,6 +26,7 @@ jobs:
           source .venv/bin/activate
           uv pip install poetry
           pip install google-auth-oauthlib
+          pip install googleapiclient.discovery
           poetry install --no-root
 
       - name: run tests
