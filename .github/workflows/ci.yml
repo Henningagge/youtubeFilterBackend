@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
@@ -23,9 +23,9 @@ jobs:
       - name: Install dependencies
         run: |
           uv venv
-          source .venv/bin/active 
-          uv pip install --upgrade pip
-          uv pip install -e . --dev
+          source .venv/bin/activate
+          uv pip install poetry
+          poetry install --no-root
 
       - name: run tests
         run: ./test.sh

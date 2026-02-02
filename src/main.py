@@ -1,4 +1,4 @@
-from constants import FilterHenning_Channelid, FilterHenning_User, Api_Key
+from constants import FilterHenning_Channelid, FilterHenning_User
 from playlists import getPlaylistViaChannelId, getVideosinPlaylist, openPlaylist
 from recomendations import getSubscribedChannels, getVideosofChannels, loadVidoeRecomendations, getChannelRecource
 from variable import currentTopicChannelId

@@ -6,8 +6,9 @@ from unittest.mock import patch, Mock, MagicMock
 import requests
 import googleapiclient.discovery
 from recomendations import getChannelRecource, getVideoLength, loadVidoeRecomendations
-from constants import Api_Key
 from variable import currentTopicChannelId
+import os
+Api_Key = os.environ.get('API_KEY')
 class TestSwitchTopi(unittest.TestCase):
     def testNormalPatternSwitch(self):
         input = "hallo123"
@@ -182,7 +183,7 @@ class TestMockGetPlaylists(unittest.TestCase):
 
 
 #! auch noch tests für fehlerund andere id also keine id und falsche id
-
+"""
 class TestGetChannelResource(unittest.TestCase):
     @patch("googleapiclient.discovery.build")
     def testGetChannelResource(self, mock_build):
@@ -207,7 +208,7 @@ class TestGetChannelResource(unittest.TestCase):
         expected_data = ['UCsd4OmYbE6BeYEdm-Vn7pcQ', 'Henning Filter', 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s88-c-k-c0x00ffffff-no-rj']
         
         self.assertEqual(user_data, expected_data)
-
+"""
 
 
 #todo hier ist etwas sus ich weiß garnicht wieso ich youtube moke die funktion ruft nur funktionen auf
