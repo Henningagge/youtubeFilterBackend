@@ -33,3 +33,4 @@ source youtube/bin/activate
 #es gibt eine funktion palylist items die könnte man nutzen für den den scheiß den du grade so schlecht in der box hast aber mock dne shit vor fix erst mal credentials
 
 #die große frage ist es mir auch wichtig neben zeit und kanalnamen auch anzuzeigen wie alt ein video ist eigentlich schon kommt später aber nicht vergessen todo
+test review
