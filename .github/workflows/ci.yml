@@ -22,10 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          rm -rf .venv
-          uv venv
-          ls -l
-          source .venv/Scripts/active 
+          source youtube/bin/active 
           uv pip install --upgrade pip
           uv pip install -e . --dev
 
