@@ -24,6 +24,7 @@ jobs:
         run: |
           uv venv
           source .venv/bin/activate
+          uv pip install poetry
           uv pip install --upgrade pip
           uv pip install  .
 
