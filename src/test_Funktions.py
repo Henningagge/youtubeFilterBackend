@@ -2,9 +2,9 @@ from playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
 import re
-from unittest.mock import patch, Mock, MagicMock
+from unittest.mock import patch, Mock
 
-from recomendations import getChannelRecource, getVideoLength, loadVidoeRecomendations
+from recomendations import getChannelRecource, getVideoLength
 from variable import currentTopicChannelId
 import os
 Api_Key = os.environ.get('API_KEY')

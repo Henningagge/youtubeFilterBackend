@@ -2,12 +2,12 @@
 from recomendations import loadVidoeRecomendations
 from playlists import getPlaylistViaChannelId, openPlaylist
 from topicSwap import switchTopic
-from flask_cors import CORS, cross_origin
+# from flask_cors import CORS, cross_origin
 
-from flask import Flask, request
+from flask import Flask
 
 app = Flask(__name__)
-cors = CORS(app)
+# cors = CORS(app)
 
 
 @app.route("/")

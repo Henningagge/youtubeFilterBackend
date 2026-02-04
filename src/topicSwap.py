@@ -1,6 +1,4 @@
-from variable import currentTopicChannelId
 import re
-from recomendations import loadVidoeRecomendations
 
 
 def switchTopic(userChannelId):

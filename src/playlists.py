@@ -1,9 +1,8 @@
-
 import googleapiclient.discovery
-
 from variable import currentTopicChannelId
-from recomendations import getChannelRecource, getVideoLength, getVideoRecourse
+from recomendations import getVideoRecourse
 import os
+
 Api_Key = os.environ.get('API_KEY')
 api_service_name = "youtube"
 api_version = "v3"

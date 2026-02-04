@@ -2,4 +2,4 @@
 max-line-length = 120  
 exclude = .venv,migrations  
 select = E,W,F           
-ignore = E501,W503       s
+ignore = E501,W503, E265       
