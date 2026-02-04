@@ -1,9 +1,9 @@
-from recomendations import getChannelRecource
+from recomendations import getChannelRecource, getSubscribedChannels
 from variable import currentTopicChannelId
 
 
 def main():
-    recomendations = getChannelRecource(currentTopicChannelId)
+    recomendations = getSubscribedChannels(currentTopicChannelId)
     print(recomendations)
     # result = getPlaylistViaChannelId()
     pass

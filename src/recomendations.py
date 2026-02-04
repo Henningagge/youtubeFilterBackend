@@ -3,7 +3,9 @@ import googleapiclient.discovery
 import re
 from variable import currentTopicChannelId
 import os
-Api_Key = os.environ.get('API_KEY')
+from dotenv import load_dotenv
+load_dotenv()
+Api_Key = os.environ.get('api_key')
 api_service_name = "youtube"
 api_version = "v3"
 
@@ -20,6 +22,7 @@ def getSubscribedChannels(userChannelId):
         print(f"Error when trying to get Channel Recource error: {e}")
 
     channelIds = []
+    print(response)
     for item in response["items"]:
         channelIds.append(item["snippet"]["resourceId"]["channelId"])
 
