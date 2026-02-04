@@ -12,6 +12,8 @@
 14. likes geben
 15. liked sowie später ansehen playylists krigen
 
+16. funktion welche automatisch neuen kanäle erkenn tund mittels der beschreibung durch ai es in die richtigen kategorien einsortiert
+
 # Fragen
 
 brauche ich eine easy version zum registrieren von nutzer weil das soll ja bei github auch jemand bauen können
