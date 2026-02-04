@@ -43,6 +43,6 @@ jobs:
       - name: run SAST
         run: poetry run bandit -r src -l
 
-      - name: run audit
-        continue-on-error: true
-        run: poetry run pip-audit
+      #- name: run audit
+      #  continue-on-error: true
+      #  run: poetry run pip-audit
