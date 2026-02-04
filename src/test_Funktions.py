@@ -1,13 +1,15 @@
 from playlists import getPlaylistViaChannelId, getVideosinPlaylist
 import unittest
 from topicSwap import switchTopic, resetToStadartTopic
-import re 
-from unittest.mock import patch, Mock, MagicMock
+import re
+from unittest.mock import patch, Mock
 
-from recomendations import getChannelRecource, getVideoLength, loadVidoeRecomendations
+from recomendations import getChannelRecource, getVideoLength
 from variable import currentTopicChannelId
 import os
 Api_Key = os.environ.get('API_KEY')
+
+
 class TestSwitchTopi(unittest.TestCase):
     def testNormalPatternSwitch(self):
         input = "hallo123"
@@ -19,6 +21,7 @@ class TestSwitchTopi(unittest.TestCase):
                 if re.fullmatch(output, line):
                     self.assertEqual(output, line)
                     resetToStadartTopic()
+
     def testNoPattern(self):
         input = ""
         output = 'currentTopicChannelId = ""'
@@ -30,6 +33,7 @@ class TestSwitchTopi(unittest.TestCase):
                     self.assertEqual(output, line)
                     resetToStadartTopic()
 
+
 class TestRestTopic(unittest.TestCase):
     def testNormalReset(self):
         output = 'currentTopicChannelId = "UCsd4OmYbE6BeYEdm-Vn7pcQ"'
@@ -40,79 +44,90 @@ class TestRestTopic(unittest.TestCase):
                 if re.fullmatch(output, line):
                     self.assertEqual(output, line)
 
+
 class TestVideosinPlaylist(unittest.TestCase):
     def testNormalResult(self):
-        #given
+        # given
         input = "PLg7eNtqimWhyPUjoBZoWK-5VcIkQfuQ4x"
-        #process
+        # process
         result = getVideosinPlaylist(input)
-        #check
+        # check
         self.assertEqual(result, [])
+
 
 class TestVideoLengthFuntion(unittest.TestCase):
     def testHouresInput(self):
-        #given
+        # given
         input = "QK79xplUqlU"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '2:07:47' )
+        # check
+        self.assertEqual(viedeoLength, '2:07:47')
 
     def testMinutesInput(self):
-        #given
+        # given
         input = "jFzwS7z2418"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '27:27' )
+        # check
+        self.assertEqual(viedeoLength, '27:27')
 
     def testMinutesInput2(self):
-        #given
+        # given
         input = "0kfpO8Up7Ek"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '50:49' )
+        # check
+        self.assertEqual(viedeoLength, '50:49')
+
     def testSecondsInput(self):
-        #given
+        # given
         input = "eB0zU5tnSPo"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '0:21' )
+        # check
+        self.assertEqual(viedeoLength, '0:21')
+
     def testPrecedingZerosMinutes(self):
-        #given
+        # given
         input = "SxuYDyk7iTw"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '1:00:01' )
+        # check
+        self.assertEqual(viedeoLength, '1:00:01')
+
     def testPrecedingZerosseconds(self):
-        #given
+        # given
         input = "GGlGYyiJfzI"
-        #process
+        # process
         viedeoLength = getVideoLength(input)
-        #check
-        self.assertEqual(viedeoLength, '13:09' )
+        # check
+        self.assertEqual(viedeoLength, '13:09')
 
 
 class TestGetPlaylist(unittest.TestCase):
     def testNormalPattern(self):
-        #given
+        # given
         expectedOutput = "{'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U': {'PlaylistTitle': 'ksajfsalkjfsak', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg'}, 'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG': {'PlaylistTitle': 'dfksajfksaj', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg'}, 'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf': {'PlaylistTitle': 'Garrot', 'PlaylistThumbnail': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg'}}"
-        #process
+        # process
         response = getPlaylistViaChannelId()
-        #check
+        # check
         self.assertEqual(f"{response}", expectedOutput)
+
 
 class TestGetChannelRecource(unittest.TestCase):
     def testNormalChannelId(self):
-        #given
+        # given
         input = "UCTzZ2-byV7kigoeQ1ZQ39ig"
-        #process
+        # process
         result = getChannelRecource(input)
-        #check
-        self.assertEqual(result, ["UCTzZ2-byV7kigoeQ1ZQ39ig", 'Ear to Hear', 'https://yt3.ggpht.com/oe2rtGqTvV-JKIBnUWbvbzVvoDP4_Uy3S8ZqMuUuIYJCdOOVNmlrVOviOlI8kX0CUCyV2v-Yvg=s88-c-k-c0x00ffffff-no-rj'])
+        # check
+        self.assertEqual(
+            result,
+            [
+                "UCTzZ2-byV7kigoeQ1ZQ39ig",
+                'Ear to Hear',
+                'https://yt3.ggpht.com/oe2rtGqTvV-JKIBnUWbvbzVvoDP4_Uy3S8ZqMuUuIYJCdOOVNmlrVOviOlI8kX0CUCyV2v-Yvg=s88-c-k-c0x00ffffff-no-rj'])
 
 
 class TestMockGetPlaylists(unittest.TestCase):
@@ -124,7 +139,116 @@ class TestMockGetPlaylists(unittest.TestCase):
         mock_playlists_list = Mock()
         mock_execute = Mock()
 
-        response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU', 'nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': [{'kind': 'youtube#playlist', 'etag': 'ODuDxSWB8jFStY7WfWGxysKday8', 'id': 'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U', 'snippet': {'publishedAt': '2026-01-26T06:33:43.91067Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'ksajfsalkjfsak', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'ksajfsalkjfsak', 'description': ''}}}, {'kind': 'youtube#playlist', 'etag': 'ckoSlizL-PGfpRi0ajCLCb4oe4U', 'id': 'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG', 'snippet': {'publishedAt': '2026-01-26T06:33:24.623843Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'dfksajfksaj', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'dfksajfksaj', 'description': ''}}}, {'kind': 'youtube#playlist', 'etag': 'yjHceQt0bqW8Ni64RmwuZyUqGsM', 'id': 'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf', 'snippet': {'publishedAt': '2026-01-26T06:33:07.659169Z', 'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ', 'title': 'Garrot', 'description': '', 'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg', 'width': 120, 'height': 90}, 'medium': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/mqdefault.jpg', 'width': 320, 'height': 180}, 'high': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/hqdefault.jpg', 'width': 480, 'height': 360}, 'standard': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/sddefault.jpg', 'width': 640, 'height': 480}, 'maxres': {'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/maxresdefault.jpg', 'width': 1280, 'height': 720}}, 'channelTitle': 'Henning Filter', 'localized': {'title': 'Garrot', 'description': ''}}}]}
+        response_dict = {
+            'kind': 'youtube#playlistListResponse',
+            'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU',
+            'nextPageToken': 'CAUQAA',
+            'pageInfo': {
+                'totalResults': 6,
+                'resultsPerPage': 5},
+            'items': [
+                {
+                    'kind': 'youtube#playlist',
+                    'etag': 'ODuDxSWB8jFStY7WfWGxysKday8',
+                    'id': 'PLg7eNtqimWhyn2z4WaBdbrDTupcZo_O3U',
+                    'snippet': {
+                        'publishedAt': '2026-01-26T06:33:43.91067Z',
+                        'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ',
+                        'title': 'ksajfsalkjfsak',
+                        'description': '',
+                        'thumbnails': {
+                            'default': {
+                                'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/default.jpg',
+                                'width': 120,
+                                'height': 90},
+                            'medium': {
+                                'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/mqdefault.jpg',
+                                'width': 320,
+                                'height': 180},
+                            'high': {
+                                'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/hqdefault.jpg',
+                                'width': 480,
+                                'height': 360},
+                            'standard': {
+                                'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/sddefault.jpg',
+                                'width': 640,
+                                'height': 480},
+                            'maxres': {
+                                'url': 'https://i.ytimg.com/vi/iaAHQPM1AOk/maxresdefault.jpg',
+                                'width': 1280,
+                                'height': 720}},
+                        'channelTitle': 'Henning Filter',
+                        'localized': {
+                            'title': 'ksajfsalkjfsak',
+                            'description': ''}}},
+                {
+                    'kind': 'youtube#playlist',
+                    'etag': 'ckoSlizL-PGfpRi0ajCLCb4oe4U',
+                    'id': 'PLg7eNtqimWhzsgyYtVznG0eijxiWtzFEG',
+                    'snippet': {
+                        'publishedAt': '2026-01-26T06:33:24.623843Z',
+                        'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ',
+                        'title': 'dfksajfksaj',
+                        'description': '',
+                        'thumbnails': {
+                            'default': {
+                                'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/default.jpg',
+                                'width': 120,
+                                'height': 90},
+                            'medium': {
+                                'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/mqdefault.jpg',
+                                'width': 320,
+                                'height': 180},
+                            'high': {
+                                'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/hqdefault.jpg',
+                                'width': 480,
+                                'height': 360},
+                            'standard': {
+                                'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/sddefault.jpg',
+                                'width': 640,
+                                'height': 480},
+                            'maxres': {
+                                'url': 'https://i.ytimg.com/vi/IQbWbxfomQ4/maxresdefault.jpg',
+                                'width': 1280,
+                                'height': 720}},
+                        'channelTitle': 'Henning Filter',
+                        'localized': {
+                            'title': 'dfksajfksaj',
+                            'description': ''}}},
+                {
+                    'kind': 'youtube#playlist',
+                    'etag': 'yjHceQt0bqW8Ni64RmwuZyUqGsM',
+                    'id': 'PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf',
+                    'snippet': {
+                        'publishedAt': '2026-01-26T06:33:07.659169Z',
+                        'channelId': 'UCsd4OmYbE6BeYEdm-Vn7pcQ',
+                        'title': 'Garrot',
+                        'description': '',
+                        'thumbnails': {
+                            'default': {
+                                'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/default.jpg',
+                                'width': 120,
+                                'height': 90},
+                            'medium': {
+                                'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/mqdefault.jpg',
+                                'width': 320,
+                                'height': 180},
+                            'high': {
+                                'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/hqdefault.jpg',
+                                'width': 480,
+                                'height': 360},
+                            'standard': {
+                                'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/sddefault.jpg',
+                                'width': 640,
+                                'height': 480},
+                            'maxres': {
+                                'url': 'https://i.ytimg.com/vi/tTDhJq7amlU/maxresdefault.jpg',
+                                'width': 1280,
+                                'height': 720}},
+                        'channelTitle': 'Henning Filter',
+                        'localized': {
+                            'title': 'Garrot',
+                            'description': ''}}}]}
 
         mock_execute.return_value = response_dict
         mock_playlists_list.execute.return_value = response_dict
@@ -154,7 +278,6 @@ class TestMockGetPlaylists(unittest.TestCase):
         }
         self.assertEqual(user_data, expected_data)
 
-
     @patch("googleapiclient.discovery.build")
     def testGetPlaylistEmpty(self, mock_build):
         mock_youtube = Mock()
@@ -162,8 +285,9 @@ class TestMockGetPlaylists(unittest.TestCase):
         mock_playlists_list = Mock()
         mock_execute = Mock()
 
-        response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU','nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': []}
-        
+        response_dict = {'kind': 'youtube#playlistListResponse', 'etag': '7GtmixPZkRuZ4i83gsgHJQePSTU',
+                         'nextPageToken': 'CAUQAA', 'pageInfo': {'totalResults': 6, 'resultsPerPage': 5}, 'items': []}
+
         mock_execute.return_value = response_dict
         mock_playlists_list.execute.return_value = response_dict
         mock_playlists.list.return_value = mock_playlists_list
@@ -205,14 +329,14 @@ class TestGetChannelResource(unittest.TestCase):
         mock_channels.list.assert_called_once_with(part="snippet", id=currentTopicChannelId)
 
         expected_data = ['UCsd4OmYbE6BeYEdm-Vn7pcQ', 'Henning Filter', 'https://yt3.ggpht.com/ytc/AIdro_n17eVS6yOwSEgbNTgXc4n9JeOKRE9MMEESD8Bfcg_tgLUU3ZPzBmNs64A-tbv0zyDUoA=s88-c-k-c0x00ffffff-no-rj']
-        
+
         self.assertEqual(user_data, expected_data)
 """
 
 
-#todo hier ist etwas sus ich weiß garnicht wieso ich youtube moke die funktion ruft nur funktionen auf
-#todo bessere möglichkeit finden das zu testen vileicht subfunktions mocken
-#* merk dir das shuffeld und du kannst xor machen wen du zwei responses hast
+# todo hier ist etwas sus ich weiß garnicht wieso ich youtube moke die funktion ruft nur funktionen auf
+# todo bessere möglichkeit finden das zu testen vileicht subfunktions mocken
+# * merk dir das shuffeld und du kannst xor machen wen du zwei responses hast
 """
 class TestRecomendations(unittest.TestCase):
     @patch("googleapiclient.discovery.build")
@@ -239,4 +363,4 @@ class TestRecomendations(unittest.TestCase):
         self.assertEqual(user_data, expected_data)
 """
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

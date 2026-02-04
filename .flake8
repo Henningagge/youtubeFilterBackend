@@ -1,5 +1,5 @@
 [flake8]
-max-line-length = 120  ; Maximale Zeilenlänge (Standard ist 79, aber 120 ist oft lesbarer)
-exclude = .venv,migrations  ; Ordner, die ignoriert werden sollen
-select = E,W,F           ; Fehler, Warnungen und Dateisystemfehler anzeigen
-ignore = E501,W503       ; Bestimmte Fehlercodes ignorieren (z.B. lange Zeilen, Zeilenumbrüche vor Operatoren)
+max-line-length = 120  
+exclude = .venv,migrations  
+select = E,W,F           
+ignore = E501,W503, E265       

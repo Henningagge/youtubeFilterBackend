@@ -1,6 +1,6 @@
-from variable import currentTopicChannelId
 import re
-from recomendations import loadVidoeRecomendations
+
+
 def switchTopic(userChannelId):
     pattern = 'currentTopicChannelId = "[a-z, A-Z,0-9,$&+,:;=?@#|<>.^*()%!-]*"'
 
