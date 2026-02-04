@@ -25,10 +25,10 @@ jobs:
           poetry install --with dev --no-root
 
       - name: formating check for code
-        run: poetry run autopep8 --in-place --recursive --aggressive --aggressive .
+        run: poetry run autopep8 --in-place --recursive --aggressive --aggressive src
 
       - name: run linter
-        run: poetry run flake8 .
+        run: poetry run flake8 src
 
       - name: security checks
         run: poetry run safety check --full-report
@@ -40,7 +40,7 @@ jobs:
         run: poetry run detect-secrets audit .secrets.baseline
 
       - name: run SAST
-        run: poetry run bandit -r . -l
+        run: poetry run bandit -r src -l
 
       - name: run audit
         run: poetry run pip-audit
