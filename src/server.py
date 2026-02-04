@@ -1,13 +1,15 @@
 
 from recomendations import loadVidoeRecomendations
 from playlists import getPlaylistViaChannelId, openPlaylist
-from topicSwap import  switchTopic
+from topicSwap import switchTopic
 from flask_cors import CORS, cross_origin
 
 from flask import Flask, request
 
 app = Flask(__name__)
 cors = CORS(app)
+
+
 @app.route("/")
 def servermain():
     return "Hello from Server"
@@ -17,6 +19,7 @@ def servermain():
 def loadRecomendationsApi():
     result = loadVidoeRecomendations()
     return result
+
 
 @app.route("/swap")
 def swapTopicApi():
@@ -29,13 +32,13 @@ def loadPlaylistsApi():
 
     return response
 
+
 @app.route("/openPlaylist")
 def openPlaylistApi():
     response = openPlaylist("PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf")
 
     return response
 
+
 if __name__ == "__main__":
     app.run()
-
-
