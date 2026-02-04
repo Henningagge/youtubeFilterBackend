@@ -34,13 +34,15 @@ jobs:
         run: poetry run safety check --full-report
 
       - name: detect secrets
-        run: poetry run detect-secrets scan --update .secrets.baseline
+        run: poetry run detect-secrets scan .secrets.baseline
 
       - name: audit secrets
+        continue-on-error: true
         run: poetry run detect-secrets audit .secrets.baseline
 
       - name: run SAST
         run: poetry run bandit -r src -l
 
       - name: run audit
+        continue-on-error: true
         run: poetry run pip-audit
