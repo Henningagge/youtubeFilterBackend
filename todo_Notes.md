@@ -14,6 +14,7 @@
 
 16. funktion welche automatisch neuen kanäle erkenn tund mittels der beschreibung durch ai es in die richtigen kategorien einsortiert
 17. script schreiben welches automatisch die sachen durchläuft wie autopep8 oder flake8 ich brauch auch noch pyright usw weil flex
+18. ich habe genai nicht in die toml gekriegt aber lenguage mal schauen ob das funktionukelt
 
 # Fragen
 
