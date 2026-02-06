@@ -5,7 +5,6 @@ from AIDBHandler import addNewChannelToDB
 def main():
     recomendations = getSubscribedChannels(currentTopicChannelId)
     print(recomendations)
-    result = getPlaylistViaChannelId()
     channel = getChannelRecource("UCFbNIlppjAuEX4znoulh0Cw")
     print(channel)
     light = getLightChannelResource("UCFbNIlppjAuEX4znoulh0Cw")
