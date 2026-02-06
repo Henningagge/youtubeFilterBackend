@@ -1,4 +1,4 @@
-from database.datainteracter import createDbRecode
+#from database.datainteracter import createDbRecode
 from Ai.databaseSorter import DbClasschooser
 from recomendations import getLightChannelResource
 
