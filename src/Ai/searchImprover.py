@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 from google import genai
-import time
 load_dotenv()
 ai_api_key = os.environ.get("GEMINI_API_KEY")
 
