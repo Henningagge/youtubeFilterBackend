@@ -1,0 +1,33 @@
+import googleapiclient.discovery
+from variable import currentTopicChannelId
+from recomendations import getVideoRecourse
+import os
+from Ai.searchImprover import fixSpelling, improveQuery
+Api_Key = os.environ.get('API_KEY')
+api_service_name = "youtube"
+api_version = "v3"
+
+
+
+def searchYoutbe(query: str):
+    speeledQuerry = fixSpelling(query)
+    improvedQuery = improveQuery(speeledQuerry)
+    print(f"Speeled query: {speeledQuerry}")
+    print(f"Imporved query: {improvedQuery}")
+    try:
+        youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=Api_Key)
+        request = youtube.search().list(
+            part="snippet",
+            channelId=currentTopicChannelId,
+            maxResults=10,
+            order="relevance",
+            q=improvedQuery
+        )
+        response = request.execute()
+    
+    except Exception as e:
+        print(f"There has been an error when requesting the Youtube Api for the Playlists of a Channel error: {e}")
+        return []
+    print(response.text)
+
+searchYoutbe("Paluten freedom epsiode with rewi and maudadossssss diter")
