@@ -32,4 +32,3 @@ def searchYoutbe(query: str):
         return []
     print(response.text)
 
-searchYoutbe("no imp Paluten freedom epsiode with rewi and maudadossssss diter")

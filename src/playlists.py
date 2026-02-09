@@ -44,7 +44,7 @@ def getVideosinPlaylist(playlistId):
             part="contentDetails",
             playlistId=playlistId
         )
-        response = request.execute()  # ! diese function ist noch nicht fertig  werden und tests sind auch noch nicht da
+        response = request.execute() 
     except Exception as e:
         print(f"There has been an error when requesting the videos of a Playlist via it's id error:  {e}")
         return []
