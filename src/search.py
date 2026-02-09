@@ -1,6 +1,5 @@
 import googleapiclient.discovery
 from variable import currentTopicChannelId
-from recomendations import getVideoRecourse
 import os
 from Ai.searchImprover import fixSpelling, improveQuery
 Api_Key = os.environ.get('API_KEY')
@@ -32,4 +31,4 @@ def searchYoutbe(query: str):
         return []
     print(response.text)
 
-searchYoutbe("no imp Paluten freedom epsiode with rewi and maudadossssss diter")
+

@@ -47,7 +47,6 @@ def getVideosofChannels(channelsidarr):
         for item in response["items"]:
             videosIds.append(item["id"]["videoId"])
     return videosIds
-    # ? man könnte die daten auch ganz an eine formatierungs funktione übergeben sowas wie title, channelId, thumbnail, channel Name läst sich auch so finden
 
 
 def getChannelRecource(channelid):
@@ -142,7 +141,6 @@ def getVideoRecourse(videoId):
     channelid = response["items"][0]["snippet"]["channelId"]
     vidoeThumbnail = response["items"][0]["snippet"]["thumbnails"]["default"]["url"]
     channelRecource = getChannelRecource(channelid)
-    # Duration, title, ThumbnailUrl, ChannelId, channelName, ChannelBanner
     videoRecource[videoId] = {
         "videoLength": videoRecource[videoId],
         "videoTitle": videoTitle,

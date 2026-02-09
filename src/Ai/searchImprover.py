@@ -68,13 +68,7 @@ def improveQuery(query):
             No extra commentary; output is the search string only.
             Step‑by‑step assembly
 
-            Normalize obvious typos and brand/model spellings.
-            Identify the main phrase(s) and quote them.
-            Decide the intent and add 1–3 precise modifiers.
-            Add disambiguators (version/year/platform/patch/language) only if helpful.
-            Append a well‑matched channel in quotes if strongly associated; otherwise omit.
-            Add minus terms to filter formats you don’t want.
-            Remove fluff; ensure quotes and spacing are clean.
-            Return only the final YouTube search string."""
+            Return only the final YouTube search string in this format.
+            Final Query: IMPROVEDQUERY"""
     )
     return response.text
