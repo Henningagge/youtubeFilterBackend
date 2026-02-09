@@ -8,7 +8,7 @@ def initDatabase():
     cursor = connection.cursor()
 
     # create tables
-    command = """CREATE TABLE IF NOT EXISTS users(owner TEXT PRIMARY KEY, topicchannel TEXT, subscribers TEXT)"""
+    command = """CREATE TABLE IF NOT EXISTS users(owner TEXT PRIMARY KEY, topic TEXT, subscribers TEXT)"""
     cursor.execute(command)
 
     #?macht owner nicht nur sin wen ich eine login habe oder den owner wechseln kann
@@ -35,11 +35,11 @@ def createDbRecode(playlist1: str, playlist2: str, channelId: str):
     cursor = connection.cursor()
 
     if playlist1 != "----":
-        currentChannel1 = cursor.execute(f"SELECT subscribers FROM users where topicchannel is {playlist1}")
+        currentChannel1 = cursor.execute(f"SELECT subscribers FROM users where topic is {playlist1}")
         cursor.execute(f"INSERT INTO users VALUES ('Henning Agge', '{playlist1}', '{currentChannel1 + " " + channelId}')")
 
     if playlist2 != "----":
-        currentChannel2 = cursor.execute(f"SELECT subscribers FROM users where topicchannel is {playlist2}")
+        currentChannel2 = cursor.execute(f"SELECT subscribers FROM users where topic is {playlist2}")
         cursor.execute(f"INSERT INTO users VALUES ('Henning Agge', '{playlist2}', '{currentChannel2 + " " + channelId}')")
 
 

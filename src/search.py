@@ -1,6 +1,5 @@
 import googleapiclient.discovery
 from variable import currentTopicChannelId
-from recomendations import getVideoRecourse
 import os
 from Ai.searchImprover import fixSpelling, improveQuery
 Api_Key = os.environ.get('API_KEY')
@@ -31,4 +30,5 @@ def searchYoutbe(query: str):
         print(f"There has been an error when requesting the Youtube Api for the Playlists of a Channel error: {e}")
         return []
     print(response.text)
+
 
