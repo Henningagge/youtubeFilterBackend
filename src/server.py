@@ -39,6 +39,11 @@ def openPlaylistApi():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-
+#! wir brauchen einen abfrage punkt der wo ich die Daten bank daten mir holen kann
+@app.route("getTopics")
+def getTopics():
+    response = getChannelTopics()
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 if __name__ == "__main__":
     app.run()
