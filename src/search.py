@@ -8,7 +8,9 @@ api_service_name = "youtube"
 api_version = "v3"
 
 
-
+# man muss mall schauen das kommen ja videos und channel die müssen ja anders außsehen.
+# eine funktion mit der man channel suchen kann aber auch videos 
+# auch eine funktion die improvents zu deaktivieren das könnte man in den prompt ein bauen:
 def searchYoutbe(query: str):
     speeledQuerry = fixSpelling(query)
     improvedQuery = improveQuery(speeledQuerry)
@@ -30,4 +32,4 @@ def searchYoutbe(query: str):
         return []
     print(response.text)
 
-searchYoutbe("Paluten freedom epsiode with rewi and maudadossssss diter")
+searchYoutbe("no imp Paluten freedom epsiode with rewi and maudadossssss diter")
