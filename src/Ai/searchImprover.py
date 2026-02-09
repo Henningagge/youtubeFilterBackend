@@ -13,6 +13,7 @@ def fixSpelling(query):
         QUERY: {query}
         Goal: Output a cleaned and slightly refined YouTube search, preserving the same language (German or English or Both).
         Instructions:
+        IF THE QUERY STARTS WITH "no imp" IT SHOULD NOT BE CHANGED AND BE JUST RETURNED IN FORMAT ALSO INCLUED IT IN THE RESPONSE.
         Detect the input language (German or English) and keep the output in that language only.
         Fix spelling, spacing, and capitalization of names, brands, models, and common terms.
         Normalize tech/product terms (e.g., noise cancelling, Bluetooth, 4K, RTX 3060; deutsch/englisch).
@@ -31,9 +32,9 @@ def improveQuery(query):
         model="gemini-2.5-flash-lite",
         contents=f"""QUERY: {query}
             Goal: Produce a high‑quality YouTube search string that boosts relevance, adds precise modifiers, and appends a fitting channel name when appropriate. Return only the final YouTube search string, no extra text.
-
+            
             Core principles
-
+            IF THE QUERY STARTS WITH "no imp" IT SHOULD NOT BE CHANGED AND BE JUST RETURNED IN FORMAT.
             Infer intent first (how‑to, repair, tutorial, guide, review, comparison, benchmark, news, interview, documentary, music video, live, playlist, VOD).
             Keep the user’s language if clear; optionally add a language tag (deutsch/german/englisch/english) only if it helps the search.
             Quote multi‑word keyphrases, product names, and proper nouns to keep them together.
