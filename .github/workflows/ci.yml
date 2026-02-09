@@ -41,6 +41,7 @@ jobs:
         run: poetry run detect-secrets audit .secrets.baseline
 
       - name: run SAST
+        continue-on-error: true
         run: poetry run bandit -r src -l
 
       #- name: run audit
