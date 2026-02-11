@@ -1,4 +1,4 @@
-# The Youtube Filter for Control in youre Socialmedia
+## The Youtube Filter for Control in youre Socialmedia
 
 Description: 
 The Youtubefilter lets you choos which channels you want to be shown you can create topics for example if you only want Frontend content.
@@ -14,7 +14,7 @@ Work in Progress Frontend got switched a bit.
 Usage: 
 Also work in progress.
 
-Contribution:
+## 🤝 Contributing
 You can frok and send pull requests if you wnat. Or get in touch with me over in the boot.dev discord rero2142. 
 
 
