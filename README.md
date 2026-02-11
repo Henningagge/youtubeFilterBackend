@@ -8,7 +8,7 @@ The Motivation was taht i have huge problem controling my social media (youtube)
 and i keep on watching. So i thought what if i could control which channels are shown. In the worst case i get programming content that is not so important,
 for me better than watching ai slop for houres.
 
-Quickstart:
+Quick Start:
 Work in Progress Frontend got switched a bit.
 
 Usage: 
