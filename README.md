@@ -26,3 +26,4 @@ source youtube/bin/activate
 
 #die große frage ist es mir auch wichtig neben zeit und kanalnamen auch anzuzeigen wie alt ein video ist eigentlich schon kommt später aber nicht vergessen todo
 test review2
+test
