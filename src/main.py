@@ -1,16 +1,9 @@
-from recomendations import getChannelRecource, getSubscribedChannels, getLightChannelResource
+from recomendations import getChannelRecource, getSubscribedChannels, getLightChannelResource,loadVidoeRecomendations
 from variable import currentTopicChannelId
 from AIDBHandler import addNewChannelToDB
 
 def main():
-    recomendations = getSubscribedChannels(currentTopicChannelId)
-    print(recomendations)
-    channel = getChannelRecource("UCFbNIlppjAuEX4znoulh0Cw")
-    print(channel)
-    light = getLightChannelResource("UCFbNIlppjAuEX4znoulh0Cw")
-    print(light)
-    addNewChannelToDB("UCFbNIlppjAuEX4znoulh0Cw")
-    pass
+    print(loadVidoeRecomendations())
     
     #result2 = openPlaylist("PLg7eNtqimWhwQsTr__Npprv7O26GBC8Yf")
 

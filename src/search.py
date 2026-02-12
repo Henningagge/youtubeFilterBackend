@@ -10,7 +10,7 @@ api_version = "v3"
 # man muss mall schauen das kommen ja videos und channel die müssen ja anders außsehen.
 # eine funktion mit der man channel suchen kann aber auch videos 
 # auch eine funktion die improvents zu deaktivieren das könnte man in den prompt ein bauen:
-def searchYoutbe(query: str):
+def searchYoutbe(query: str, type: str):
     speeledQuerry = fixSpelling(query)
     improvedQuery = improveQuery(speeledQuerry)
     print(f"Speeled query: {speeledQuerry}")
@@ -22,7 +22,8 @@ def searchYoutbe(query: str):
             channelId=currentTopicChannelId,
             maxResults=10,
             order="relevance",
-            q=improvedQuery
+            q=improvedQuery,
+            type=type
         )
         response = request.execute()
     
