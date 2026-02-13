@@ -55,3 +55,6 @@ jobs:
 
       - name: run pytest and coverage
         run: poetry run pytest --cov=/src --cov-report=xml --cov-fail-under=5
+
+      - name: run pyright for typechecks
+        run: poetry run pyright
