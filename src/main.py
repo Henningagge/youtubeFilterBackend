@@ -1,4 +1,4 @@
-#from recomendations import getChannelRecource, getSubscribedChannels, getLightChannelResource,loadVidoeRecomendations
+from recomendations import loadVidoeRecomendations
 #from variable import currentTopicChannelId
 #from AIDBHandler import addNewChannelToDB
 
