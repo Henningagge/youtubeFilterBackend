@@ -5,7 +5,6 @@ def initDatabase():
 
     connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
-    cursor.execute("DROP TABLE IF EXISTS users")
     command = """CREATE TABLE IF NOT EXISTS users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     owner VARCHAR(255) NOT NULL,
@@ -39,12 +38,12 @@ def addChannelToTopic(playlist1: str, playlist2: str, channelId: str):
     
     if playlist1 != "----":
         currentChannel1 = cursor.execute("SELECT subscribers FROM users where topic is ?", (playlist1))
-        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel1 + " " + channelId, playlist1))
+        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel1[0][3] + " " + channelId, playlist1))
         connection.commit()
 
     if playlist2 != "----":
         currentChannel2 = cursor.execute("SELECT subscribers FROM users where topic is ?", (playlist2))
-        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel2 + " " + channelId, playlist2))
+        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel2[0][3] + " " + channelId, playlist2))
         connection.commit()
     connection.close()
 
@@ -60,6 +59,7 @@ def checkChannelInDb(chnnelId: str):
             connection.close()
             return True
     connection.close()
+    return False
 
 checkChannelInDb("UC2Rxu8zyppEhjhZLlYL_iOQ")
 
@@ -69,5 +69,8 @@ def getChannelsForTopic(topic: str):
     cursor.execute("SELECT * FROM users WHERE topic = ?", (topic,))
     results = cursor.fetchall()
     connection.close()
-    return results[0][3]
+    if results:
+        return results[0][3]
+    else: 
+        return ""
 print(getChannelsForTopic("Hardware"))
