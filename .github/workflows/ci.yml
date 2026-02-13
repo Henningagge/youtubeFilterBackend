@@ -41,9 +41,20 @@ jobs:
         run: poetry run detect-secrets audit .secrets.baseline
 
       - name: run SAST
-        continue-on-error: true
         run: poetry run bandit -r src -l
 
-      #- name: run audit
-      #  continue-on-error: true
-      #  run: poetry run pip-audit
+      - name: run pylint
+        continue-on-error: true
+        run: poetry run pylint src --output-format=text
+
+      - name: deadcode detector vulture
+        run: poetry run vulture src --min-confidence 80 --sort-by-size
+
+      - name: run Radon complexity analyser
+        run: poetry run radon cc src -a -nc
+
+      #- name: run pytest and coverage
+      #  run: poetry run pytest --cov=src --cov-report=xml --cov-fail-under=5
+
+      - name: run pyright for typechecks
+        run: poetry run pyright
