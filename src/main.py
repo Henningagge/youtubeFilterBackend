@@ -1,6 +1,6 @@
-from recomendations import getChannelRecource, getSubscribedChannels, getLightChannelResource,loadVidoeRecomendations
-from variable import currentTopicChannelId
-from AIDBHandler import addNewChannelToDB
+#from recomendations import getChannelRecource, getSubscribedChannels, getLightChannelResource,loadVidoeRecomendations
+#from variable import currentTopicChannelId
+#from AIDBHandler import addNewChannelToDB
 
 def main():
     print(loadVidoeRecomendations())

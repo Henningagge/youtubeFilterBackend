@@ -38,12 +38,12 @@ def addChannelToTopic(playlist1: str, playlist2: str, channelId: str):
     cursor = connection.cursor()
     
     if playlist1 != "----":
-        currentChannel1 = cursor.execute(f"SELECT subscribers FROM users where topic is ?", (playlist1))
+        currentChannel1 = cursor.execute("SELECT subscribers FROM users where topic is ?", (playlist1))
         cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel1 + " " + channelId, playlist1))
         connection.commit()
 
     if playlist2 != "----":
-        currentChannel2 = cursor.execute(f"SELECT subscribers FROM users where topic is ?", (playlist2))
+        currentChannel2 = cursor.execute("SELECT subscribers FROM users where topic is ?", (playlist2))
         cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel2 + " " + channelId, playlist2))
         connection.commit()
     connection.close()
@@ -53,15 +53,12 @@ def checkChannelInDb(chnnelId: str):
     connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
     
-    response = cursor.execute(f"SELECT * FROM users")
+    response = cursor.execute("SELECT * FROM users")
     for row in response:
         splitChannelIds = row[3].split(" ")
         if chnnelId in splitChannelIds:
             connection.close()
             return True
-        ##else:
-          #  cursor.execute("UPDATE users SET  subscribers = ? WHERE topic = ?", (row[3] + " " + chnnelId, row[2]))
-           # connection.commit()
     connection.close()
 
 checkChannelInDb("UC2Rxu8zyppEhjhZLlYL_iOQ")
