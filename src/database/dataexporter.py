@@ -1,10 +1,9 @@
 import sqlite3
-
+from dbconstants import dbName
 
 
 def getChannelTopics(topic: str):
-    #define connection and cursor
-    connection = sqlite3.connect("users_subscribers.db")
+    connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
 
     response = cursor.execute(f"SELECT * FROM users WHERE owner == 'Henning Agge' and topic == {topic}")

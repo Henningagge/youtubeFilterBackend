@@ -1,10 +1,9 @@
 import sqlite3
-
-
+from dbconstants import dbName
 
 def initDatabase():
 
-    connection = sqlite3.connect("users_subscribers.db")
+    connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
     cursor.execute("DROP TABLE IF EXISTS users")
     command = """CREATE TABLE IF NOT EXISTS users(
@@ -30,27 +29,48 @@ def initDatabase():
     cursor.execute("INSERT INTO users VALUES (13,'Henning Agge', 'Finace/Finanzen', 'UCFxPUPyzQQYaNfj0El4Ccqg UCeARcCUiZg79SQQ-2_XNlXQ UCkCGANrihzExmu9QiqZpPlQ UCkcnYVAVZQOB-nXHechtXDg')")
     cursor.execute("INSERT INTO users VALUES (14,'Henning Agge', 'General', 'UC2Rxu8zyppEhjhZLlYL_iOQ UC8butISFwT-Wl7EV0hUK0BQ UCUyeluBRhGPCW4rPe_UvBZQ UCyFWoLmPTgZ3BkHIKMRSV1g')")
     connection.commit()
+    connection.close()
 
 
-def createDbRecode(playlist1: str, playlist2: str, channelId: str):
+def addChannelToTopic(playlist1: str, playlist2: str, channelId: str):
     
-    connection = sqlite3.connect("users_subscribers.db")
+    connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
-    #prepared staments
     
     if playlist1 != "----":
         currentChannel1 = cursor.execute(f"SELECT subscribers FROM users where topic is ?", (playlist1))
-        cursor.execute(f"INSERT INTO users (owner, topic, subscribers) VALUES ('Henning Agge', ?, ?)", (playlist1, currentChannel1 + " " + channelId))
+        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel1 + " " + channelId, playlist1))
         connection.commit()
 
     if playlist2 != "----":
         currentChannel2 = cursor.execute(f"SELECT subscribers FROM users where topic is ?", (playlist2))
-        cursor.execute(f"INSERT INTO users (owner, topic, subscribers) VALUES ('Henning Agge', ?, ?)",(playlist2, currentChannel2 + " " + channelId))
+        cursor.execute("UPDATE users SET subscribers = ? WHERE topic = ?", (currentChannel2 + " " + channelId, playlist2))
         connection.commit()
+    connection.close()
 
 
 def checkChannelInDb(chnnelId: str):
-    pass
+    connection = sqlite3.connect(dbName)
+    cursor = connection.cursor()
+    
+    response = cursor.execute(f"SELECT * FROM users")
+    for row in response:
+        splitChannelIds = row[3].split(" ")
+        if chnnelId in splitChannelIds:
+            connection.close()
+            return True
+        ##else:
+          #  cursor.execute("UPDATE users SET  subscribers = ? WHERE topic = ?", (row[3] + " " + chnnelId, row[2]))
+           # connection.commit()
+    connection.close()
+
+checkChannelInDb("UC2Rxu8zyppEhjhZLlYL_iOQ")
 
 def getChannelsForTopic(topic: str):
-    pass
+    connection = sqlite3.connect(dbName)
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE topic = ?", (topic,))
+    results = cursor.fetchall()
+    connection.close()
+    return results[0][3]
+print(getChannelsForTopic("Hardware"))
