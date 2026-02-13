@@ -6,5 +6,5 @@ def getChannelTopics(topic: str):
     connection = sqlite3.connect(dbName)
     cursor = connection.cursor()
 
-    response = cursor.execute(f"SELECT * FROM users WHERE owner == 'Henning Agge' and topic == ?", (topic))
+    response = cursor.execute("SELECT * FROM users WHERE owner == 'Henning Agge' and topic == ?", (topic))
     return response
